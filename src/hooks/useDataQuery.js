@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import { useEffect } from "react";
+import { getAnimals } from "../api";
 
 const DEFAULT_QUERY_STATE = {
     isLoading: false,
@@ -19,7 +20,7 @@ const queryReducer = (state, action) => {
     return state;
 };
 
-export function useDataQuery({ url, searchParams }) {
+export function useDataQuery({ operation, searchParams }) {
     const [state, dispatch] = useReducer(queryReducer, DEFAULT_QUERY_STATE);
 
     const queryDeps = Object.entries(searchParams).map(([key, value]) => value);
@@ -28,14 +29,19 @@ export function useDataQuery({ url, searchParams }) {
         (async function () {
             dispatch({ type: "fetching" });
             try {
-                const response = await fetch(url, { searchParams });
+                const response = await operation(searchParams);
                 const json = response.json();
                 return dispatch({ type: "done", data: json });
             } catch (error) {
                 return dispatch({ type: "error", error });
             }
         })();
-    }, [url, ...queryDeps]);
+    }, queryDeps);
 
+    return state;
+}
+
+export function useGetAnimals({ type = "", gender = "", age = "", city = "", page = 1 }) {
+    const state = useDataQuery(getAnimals, { type, gender, age, city, page });
     return state;
 }
