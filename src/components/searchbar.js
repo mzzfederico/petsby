@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import { PropTypes } from "prop-types";
 import useSearchContext from "../hooks/useSearchContext";
 
-export default function Searchbar({ value = "", name = "city", placeholder = "Where are you located?" }) {
+export default function Searchbar() {
     const { allCitiesJson: json } = useStaticQuery(graphql`
         query CitiesQuery {
             allCitiesJson {
@@ -64,7 +64,7 @@ export default function Searchbar({ value = "", name = "city", placeholder = "Wh
         <div className="search-searchbar" style={styles.searchBar}>
             {!barState.isCompleted && <input
                 style={styles.cityInput}
-                type="text" name={name} id={name} placeholder={placeholder}
+                type="text" name={name} id={name} placeholder={"Insert your city..."}
                 onChange={handleInput} value={barState.inputValue}
             />}
 
@@ -91,10 +91,6 @@ export default function Searchbar({ value = "", name = "city", placeholder = "Wh
         </div >
     );
 }
-
-Searchbar.propTypes = {
-    value: PropTypes.string, onChange: PropTypes.func, name: PropTypes.string, placeholder: PropTypes.string
-};
 
 /** Handles all the relevant actions and states */
 function useBarState() {
