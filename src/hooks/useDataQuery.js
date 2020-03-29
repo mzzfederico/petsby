@@ -7,7 +7,7 @@ import ky from "ky";
 const DEFAULT_QUERY_STATE = {
     isLoading: false,
     isError: false,
-    data: {},
+    data: false,
     error: {}
 };
 
@@ -56,7 +56,7 @@ export function useDataQuery({ url, searchParams }) {
                 return dispatch({ type: "error", error });
             }
         })();
-    }, [token]);
+    }, [token, JSON.stringify(cleanSearchParams)]);
 
     return state;
 }

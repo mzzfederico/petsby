@@ -11,6 +11,8 @@ export default function Searchbar({ value = "", name = "city", placeholder = "Wh
                     node {
                         id,
                         city,
+                        latitude,
+                        longitude,
                         state
                     }
                 }
