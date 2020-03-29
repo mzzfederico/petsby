@@ -1,8 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import { useStaticQuery, graphql } from "gatsby";
 import PropTypes from "prop-types";
-import useSearchContext from "../hooks/useSearchContext";
+import useSearchContext from "../../hooks/useSearchContext";
 import Searchbar from "./searchbar";
 
 export default function SearchBlock() {

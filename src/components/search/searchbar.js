@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import { PropTypes } from "prop-types";
-import useSearchContext from "../hooks/useSearchContext";
+import useSearchContext from "../../hooks/useSearchContext";
 
 export default function Searchbar() {
     const { allCitiesJson: json } = useStaticQuery(graphql`

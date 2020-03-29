@@ -1,6 +1,6 @@
 import React from "react";
-import useSearchContext from "../hooks/useSearchContext";
-import { useGetAnimals } from "../hooks/useDataQuery";
+import useSearchContext from "../../hooks/useSearchContext";
+import { useGetAnimals } from "../../hooks/useDataQuery";
 
 export default function ResultsBlock() {
     const { species, city } = useSearchContext();
