@@ -7,7 +7,8 @@ const DEFAULT_SEARCH_STATE = {
     page: 1
 };
 
-const SearchContext = React.createContext();
+// Without initializing the context as the useReducer tuple, Gatsby won't render it
+const SearchContext = React.createContext([DEFAULT_SEARCH_STATE, () => { }]);
 
 export default function useSearchContext() {
     const [state, dispatch] = useContext(SearchContext);
