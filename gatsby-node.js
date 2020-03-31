@@ -49,7 +49,7 @@ exports.createPages = async ({ actions, reporter }) => {
 
     const petTemplate = path.resolve("src/pages/pet.js");
     latestPets.forEach((pet) => {
-        const path = `/animal/${pet.id}`;
+        const path = `/${pet.species.toLowerCase()}/${pet.id}`;
         createPage({
             path,
             component: petTemplate,
@@ -60,10 +60,15 @@ exports.createPages = async ({ actions, reporter }) => {
         });
     });
 
-    // Generic route
+    // Generic routes for those animals that aren't prerendered
     createPage({
-        path: "/animal/:id",
-        matchPath: "/animal/:id",
+        path: "/dog/:id",
+        matchPath: "/dog/:id",
+        component: petTemplate
+    });
+    createPage({
+        path: "/cat/:id",
+        matchPath: "/cat/:id",
         component: petTemplate
     });
 };

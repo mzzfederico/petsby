@@ -40,7 +40,7 @@ export default function PetDetails({ pet = false }) {
                     <p className="characters">
                         <ul>
                             <li><b>Age:</b> {age}</li>
-                            <li><b>Coat:</b> {coat}</li>
+                            {coat && <li><b>Coat:</b> {coat}</li>}
                             <li><b>Status:</b> {status}</li>
                         </ul>
                     </p>

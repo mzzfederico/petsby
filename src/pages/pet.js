@@ -7,25 +7,29 @@ import PetProvider from "../components/pets/provider";
 const PetPage = (props) => {
     const { pageContext, id } = props;
 
-    return (
-        <Container>
-            {
-                "pet" in pageContext
-                    ? (
-                        <PetDetails pet={pageContext.pet} />
-                    )
-                    : (
-                        <PetProvider id={id}>
-                            {({ data, isLoading }) => {
-                                if (isLoading) return null;
-                                if (data) return <PetDetails pet={data.animal} />;
-                                return "Not found.";
-                            }}
-                        </PetProvider>
-                    )
-            }
-        </Container>
-    );
+    if ("pet" in pageContext) {
+        return (
+            <Container>
+                <PetDetails pet={pageContext.pet} />
+            </Container>
+        );
+    }
+
+    if (id) {
+        return (
+            <Container>
+                <PetProvider id={id}>
+                    {({ data, isLoading }) => {
+                        if (isLoading) return null;
+                        if (data) return <PetDetails pet={data.animal} />;
+                        return "Not found.";
+                    }}
+                </PetProvider>
+            </Container>
+        );
+    }
+
+    return "Not found.";
 };
 
 export default PetPage;
