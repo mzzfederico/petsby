@@ -15,6 +15,7 @@ export default function RecentList() {
                             pet {
                                 id
                                 name
+                                gender
                                 species
                             }
                         }
@@ -30,16 +31,15 @@ export default function RecentList() {
             <ul>
                 {pages.allSitePage.edges
                     .slice(0, 9)
-                    .filter(({ node }) => node.context.pet)
+                    .filter(({ node }) => node.context && node.context.pet)
                     .map(({ node }) => {
                         const { context, path } = node;
-                        const { name, species, id } = context.pet;
+                        const { name, species, id, gender } = context.pet;
                         return (
                             <li key={id}>
-
                                 {species === "Cat" && <span><FontAwesomeIcon icon={faCat} /></span>}
                                 {species === "Dog" && <span><FontAwesomeIcon icon={faDog} /></span>}
-                                <span><em>{name}</em> <Link to={`/animal/${id}`}><FontAwesomeIcon icon={faLink} /></Link></span>
+                                <span><em>{name}</em> <Link to={`/${gender.toLowerCase()}/${id}`}><FontAwesomeIcon icon={faLink} /></Link></span>
                             </li>
                         );
                     })
