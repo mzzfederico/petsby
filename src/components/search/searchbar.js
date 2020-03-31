@@ -1,7 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import { PropTypes } from "prop-types";
-import useSearchContext from "../hooks/useSearchContext";
+import useSearchContext from "../../hooks/useSearchContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function Searchbar() {
     const { allCitiesJson: json } = useStaticQuery(graphql`
@@ -44,10 +45,17 @@ export default function Searchbar() {
 
     const suggestions = autocompleteCities.map(
         ({ id, city, state }) => (
-            <li key={id} style={{ display: "inline" }}>
-                <button
-                    style={{ background: "transparent", border: "1px solid purple", margin: "0.25rem" }}
-                    onClick={() => handleAutocomplete(id)}>{city}, {state}</button>
+            <li key={id}>
+                <button onClick={() => handleAutocomplete(id)}>{city}, {state}</button>
+
+                <style jsx>{`
+                    li { display: inline; }
+                    button {
+                        display: inline; background-color: purple; border: 0; border-radius: 0.5rem;
+                        color: white; border-radius: 0.125rem; margin-right: 0.25rem; margin-bottom: 0.25rem;
+                        padding: 0.25rem 0.5rem;
+                    }
+                `}</style>
             </li>
         )
     );
@@ -55,40 +63,54 @@ export default function Searchbar() {
     const showCompletions = !barState.isCompleted && suggestions.length > 0 && barState.inputValue.length > 0;
     const noCompletionsFound = !barState.isCompleted && suggestions.length === 0 && barState.inputValue.length > 0;
 
-    const styles = {
-        searchBar: { width: "100%", marginBottom: "2rem" },
-        cityInput: { width: "100%", marginBottom: "1rem", padding: "0.75rem", fontSize: "1.5rem", border: "1px solid rebeccapurple", display: "block" }
-    };
-
     return (
-        <div className="search-searchbar" style={styles.searchBar}>
+        <div className="search-searchbar">
             {!barState.isCompleted && <input
-                style={styles.cityInput}
-                type="text" name={name} id={name} placeholder={"Insert your city..."}
+                type="text" placeholder={"Insert your city..."}
                 onChange={handleInput} value={barState.inputValue}
             />}
 
-            {barState.isCompleted && <span style={styles.cityInput}>
-                <span style={{ padding: "0.15rem 0.5rem", border: "1px solid rebeccapurple", borderRadius: "0.5rem" }}>{barState.selected.city} <button style={{ color: "rebeccapurple", background: "transparent", border: "0" }} onClick={() => handleClear()}>x</button></span>
+            {barState.isCompleted && <span>
+                <span style={{}}>{barState.selected.city} <button onClick={() => handleClear()}><FontAwesomeIcon icon={faTimesCircle} /></button></span>
             </span>}
 
-            {
-                showCompletions
-                    ? <div className="autocomplete" style={{ fontSize: "0.75rem" }}>
-                        <em>Did you mean...</em>
-                        <ul style={{ display: "inline", listStyle: "none" }}>{suggestions.slice(0, 9)}</ul>
-                    </div>
-                    : null
-            }
+            {showCompletions
+                ? <div className="autocomplete" style={{ fontSize: "0.75rem" }}>
+                    <em>Did you mean...</em>
+                    <ul>{suggestions.slice(0, 9)}</ul>
+                </div>
+                : null}
 
-            {
-                noCompletionsFound
-                    ? <div className="autocomplete" style={{ fontSize: "0.75rem", color: "red" }}>
-                        <em>Sorry, we couldn't find a city.</em>
-                    </div>
-                    : null
-            }
-        </div >
+            {noCompletionsFound
+                ? <div className="autocomplete error">
+                    <em>{"Sorry, we couldn't find a city"}.</em>
+                </div>
+                : null}
+
+            <style jsx>{`
+                .search-searchbar {
+                    margin-bottom: 1rem;
+                }
+                .search-searchbar > input, .search-searchbar > span {
+                    width: calc(100% - 2rem);
+                    padding: 0.75rem;
+                    margin-bottom: 1rem;
+                    font-size: 1.25rem;
+                    background-color: #f5f5f5;
+                    box-shadow: none;
+                    border: 0;
+                    display: block;
+                }
+
+                .search-searchbar > span { font-style: italic; }
+                .search-searchbar > span > span { padding: 0.15rem 0.5rem; border: 1px solid #b5b5b5; border-radius: 0.5rem; }
+                .search-searchbar > span > span button {padding: 0.15rem 0.5rem; background-color: transparent; border: 0; }
+
+                .autocomplete { font-size: 0.75rem; }
+                .autocomplete.error { color red; }
+                .autocomplete ul { display: inline; list-style: none; }
+            `}</style>
+        </div>
     );
 }
 
