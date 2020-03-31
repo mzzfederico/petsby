@@ -49,7 +49,7 @@ exports.createPages = async ({ actions, reporter }) => {
 
     const petTemplate = path.resolve("src/pages/pet.js");
     latestPets.forEach((pet) => {
-        const path = `/${pet.gender.toLowerCase()}/${pet.id}`;
+        const path = `/${pet.species.toLowerCase()}/${pet.id}`;
         createPage({
             path,
             component: petTemplate,

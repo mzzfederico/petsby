@@ -39,7 +39,7 @@ export default function RecentList() {
                             <li key={id}>
                                 {species === "Cat" && <span><FontAwesomeIcon icon={faCat} /></span>}
                                 {species === "Dog" && <span><FontAwesomeIcon icon={faDog} /></span>}
-                                <span><em>{name}</em> <Link to={`/${gender.toLowerCase()}/${id}`}><FontAwesomeIcon icon={faLink} /></Link></span>
+                                <span><em>{name}</em> <Link to={`/${species.toLowerCase()}/${id}`}><FontAwesomeIcon icon={faLink} /></Link></span>
                             </li>
                         );
                     })

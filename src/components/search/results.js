@@ -36,7 +36,7 @@ export default function ResultsBlock() {
 }
 
 export function ResultItem({ animal }) {
-    const { name, age, gender, size, photos, id } = animal;
+    const { name, age, gender, size, photos, id, species } = animal;
 
     const imgSet = photos.map((photo, index) => photo.medium);
 
@@ -59,7 +59,7 @@ export function ResultItem({ animal }) {
                         <li><b>Size:</b> {size}</li>
                     </ul>
                 </div>
-                <Link to={`/animal/${id}`}>more details</Link>
+                <Link to={`/${species.toLowerCase()}/${id}`}>more details</Link>
             </div>
 
             <style jsx global>{`
