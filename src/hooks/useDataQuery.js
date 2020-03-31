@@ -13,7 +13,7 @@ const DEFAULT_QUERY_STATE = {
 
 const queryReducer = (state, action) => {
     const actions = {
-        "fetching": (state) => ({ ...state, isLoading: true }),
+        "fetching": (state) => ({ ...state, isLoading: true, data: false }),
         "done": (state, action) => ({ ...state, isLoading: false, data: action.data }),
         "error": (state, action) => ({ ...state, isLoading: false, isError: true, error: action.error })
     };

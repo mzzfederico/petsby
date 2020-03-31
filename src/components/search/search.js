@@ -17,25 +17,46 @@ export default function SearchBlock() {
 
     return (
         <div className="search">
-            <form
-                style={{
-                    width: "100%",
-                    padding: "2rem 0"
-                }}
-                onSubmit={e => e.preventDefault()}
-                action="/search">
+            <form>
 
                 <Searchbar />
 
-                <div className="search-details" style={{ width: "100%", marginBottom: "2rem" }}>
-                    <div className="species" style={{ display: "inline-block", marginRight: "1rem" }}>
+                <div className="search-details">
+                    <div className="species">
                         {radios}
                     </div>
-
-                    <input type="submit" value="search" style={{ float: "right" }} />
                 </div>
 
             </form>
+
+            <style jsx>{`
+                .search {
+                    padding: 1rem;
+                    box-shadow: 0 12px 100px 8px rgba(0,0,0,.1);
+                    border-radius: 1rem;
+                    grid-column: 4 / 10;
+                }
+
+                .search form {
+                    width: 100%;
+                }
+
+                .search .search-details {
+                    width: 100%;
+                }
+
+                .search .search-details .species {
+                    display: inline-block;
+                    margin-right: 1rem;
+                }
+
+                .search .search-details input {
+                    float: right;
+                    background: transparent;
+                    border: 1px solid rebeccapurple;
+                    font-variant: small-caps;
+                }
+            `}</style>
         </div>
     );
 }
