@@ -38,9 +38,13 @@ const Container = ({ children }) => {
                     }
 
                     .container {
-                        display: grid;
-                        grid-template-columns: repeat(12, 1fr);
-                        grid-row-gap: 2rem;
+                        min-height: 95vh;
+                        max-width: 70rem;
+                        margin: 0 auto;
+                    }
+
+                    .container > div {
+                        margin-bottom: 1rem;
                     }
                 `}</style>
             </div>

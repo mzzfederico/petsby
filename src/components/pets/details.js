@@ -51,10 +51,11 @@ export default function PetDetails({ pet = false }) {
             </section>
             <style jsx>{`
                 .pet-details {
+                    overflow: hidden;
                     padding: 1rem;
                     box-shadow: 0 12px 100px 8px rgba(0,0,0,.1);
                     border-radius: 1rem;
-                    grid-column: 4 / 10;
+
                 }
 
                 .pet-picture {

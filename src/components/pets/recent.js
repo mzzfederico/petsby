@@ -50,7 +50,7 @@ export default function RecentList() {
                 .recent-list {
                     box-shadow: 0 12px 100px 8px rgba(0,0,0,.1);
                     border-radius: 1rem;
-                    grid-column: 4 / 10;
+
                 }
 
                 .recent-list h2 {

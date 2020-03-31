@@ -23,7 +23,7 @@ const queryReducer = (state, action) => {
 };
 
 /* Gets the token from the localStorage, proceeds to get the data with a side effect */
-export function useDataQuery({ url, searchParams }) {
+export function useDataQuery({ url, searchParams, mandatoryParams = [] }) {
     const token = useAuthToken();
     const [state, dispatch] = useReducer(queryReducer, DEFAULT_QUERY_STATE);
 
@@ -38,7 +38,12 @@ export function useDataQuery({ url, searchParams }) {
         );
 
     useEffect(() => {
-        if (!token) return false;
+        //skip effect if missing token
+        if (!token) return;
+
+        //skip effect if a mandatory parameter is not available
+        if (mandatoryParams.some(entry => cleanSearchParams[entry] === false)) return;
+
         (async function () {
             // no token, we wait...
             if (token === false) return false;
@@ -56,18 +61,18 @@ export function useDataQuery({ url, searchParams }) {
                 return dispatch({ type: "error", error });
             }
         })();
-    }, [token, JSON.stringify(cleanSearchParams)]);
+    }, [token, url, JSON.stringify(cleanSearchParams)]);
 
     return state;
 }
 
 /** Alias of useDataQuery to handle getAnimals requests */
 export function useGetAnimals({ type = "", gender = "", age = "", location = "", page = 1 }) {
-    const state = useDataQuery({ url: resources.getAnimals, searchParams: { type, gender, age, location, page } });
+    const state = useDataQuery({ url: resources.getAnimals, searchParams: { type, gender, age, location, page }, mandatoryParams: ["location"] });
     return state;
 }
 /** Alias of useDataQuery to handle getAnimals requests for a single animal*/
 export function useGetAnimalById({ id }) {
-    const state = useDataQuery({ url: `${resources.getAnimals}/${id}`, searchParams: {} });
+    const state = useDataQuery({ url: `${resources.getAnimals}/${id}`, searchParams: {}, mandatory: [] });
     return state;
 }

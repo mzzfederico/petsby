@@ -14,7 +14,7 @@ const Header = ({ siteTitle }) => (
 
         <style global jsx>{`
             header.titlebar {
-                grid-column: 4 / 10;
+
             }
 
             header.titlebar div {
