@@ -16,7 +16,7 @@ const PetPage = (props) => {
                     )
                     : (
                         <PetProvider id={id}>
-                            {({ data, isLoading, isError }) => {
+                            {({ data, isLoading }) => {
                                 if (isLoading) return null;
                                 if (data) return <PetDetails pet={data.animal} />;
                                 return "Not found.";

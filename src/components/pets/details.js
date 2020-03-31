@@ -8,7 +8,7 @@ export default function PetDetails({ pet = false }) {
     return (
         <article className="pet-details">
             {photos.slice(0, 1).map(
-                photo => <img className={"pet-picture"} src={photo.medium} title={`${name} - ${breeds.primary}`} />
+                photo => <img key={"picture"} className={"pet-picture"} src={photo.medium} title={`${name} - ${breeds.primary}`} />
             )}
 
             <SEO title={`${name} - ${breeds.primary}`} />
@@ -101,7 +101,7 @@ export default function PetDetails({ pet = false }) {
                     padding: 0.25rem 0.5rem;
                 }
             `}</style>
-        </article >
+        </article>
     );
 }
 

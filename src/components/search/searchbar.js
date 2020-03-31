@@ -22,8 +22,8 @@ export default function Searchbar() {
     `);
 
     /* Prevents annoying autocomplete after clicking on a button to autocomplete */
-    const { setCity, ...data } = useSearchContext();
-    const [barState, dispatch] = useBarState();
+    const { setCity, city, ...data } = useSearchContext();
+    const [barState, dispatch] = useBarState({ initialCity: city });
     const { allCities, autocompleteCities } = useCitiesData(json, barState.inputValue);
 
     useEffect(() => {
@@ -71,11 +71,11 @@ export default function Searchbar() {
             />}
 
             {barState.isCompleted && <span>
-                <span style={{}}>{barState.selected.city} <button onClick={() => handleClear()}><FontAwesomeIcon icon={faTimesCircle} /></button></span>
+                <span>{barState.selected.city} <button onClick={() => handleClear()}><FontAwesomeIcon icon={faTimesCircle} /></button></span>
             </span>}
 
             {showCompletions
-                ? <div className="autocomplete" style={{ fontSize: "0.75rem" }}>
+                ? <div className="autocomplete">
                     <em>Did you mean...</em>
                     <ul>{suggestions.slice(0, 9)}</ul>
                 </div>
@@ -115,10 +115,10 @@ export default function Searchbar() {
 }
 
 /** Handles all the relevant actions and states */
-function useBarState() {
+function useBarState({ initialCity }) {
     const DEFAULT_BAR_STATE = {
-        isCompleted: false,
-        selected: false,
+        isCompleted: initialCity ? true : false,
+        selected: initialCity,
         inputValue: ""
     };
 
@@ -139,7 +139,9 @@ function useCitiesData(json, inputValue) {
     const allCities = json.edges.map(edge => edge.node);
 
     const autocompleteCities = allCities.filter(({ city, state }) => {
-        if (city.includes(inputValue)) return true;
+        let _input = inputValue.toLowerCase();
+        if (city.toLowerCase().includes(_input)) return true;
+        if (state.toLowerCase().includes(_input)) return true;
         return false;
     });
 
