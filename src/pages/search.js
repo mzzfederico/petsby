@@ -1,17 +1,16 @@
 import React from "react";
-import { Link } from "gatsby";
 
-import Layout from "../components/layout";
+import Container from "../components/container";
 import SEO from "../components/seo";
-import SearchBlock from "../components/search";
-import ResultsBlock from "../components/results";
+import SearchBlock from "../components/search/search";
+import ResultsBlock from "../components/search/results";
 
 const IndexPage = () => (
-    <Layout>
+    <Container>
         <SEO title="Search" />
         <SearchBlock />
         <ResultsBlock />
-    </Layout>
+    </Container>
 );
 
 export default IndexPage;

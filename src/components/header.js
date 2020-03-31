@@ -3,31 +3,35 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const Header = ({ siteTitle }) => (
-    <header
-        style={{
-            background: "rebeccapurple",
-            marginBottom: "1.45rem",
-        }}
-    >
-        <div
-            style={{
-                margin: "0 auto",
-                maxWidth: 960,
-                padding: "1.45rem 1.0875rem",
-            }}
-        >
-            <h1 style={{ margin: 0 }}>
-                <Link
-                    to="/"
-                    style={{
-                        color: "white",
-                        textDecoration: "none",
-                    }}
-                >
+    <header className="titlebar">
+        <div>
+            <h1>
+                <Link to="/">
                     {siteTitle}
                 </Link>
             </h1>
         </div>
+
+        <style global jsx>{`
+            header.titlebar {
+                grid-column: 4 / 10;
+            }
+
+            header.titlebar div {
+                text-align: left;
+            }
+
+            header.titlebar div h1 {
+                font-size: 1.5rem;
+            }
+
+            header.titlebar div h1 a {
+                font-variant: small-caps;
+                text-decoration: none;
+                font-weight: 300;
+                text-transform: lowercase;
+            }
+        `}</style>
     </header>
 );
 
