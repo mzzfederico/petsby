@@ -24,8 +24,9 @@ const Container = ({ children }) => {
 
     return (
         <>
-            <Header siteTitle={data.site.siteMetadata.title} />
             <div className="container">
+                <Header siteTitle={data.site.siteMetadata.title} />
+
                 {children}
 
                 <style jsx>{`

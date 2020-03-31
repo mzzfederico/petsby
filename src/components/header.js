@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const Header = ({ siteTitle }) => (
-    <header>
+    <header className="titlebar">
         <div>
             <h1>
                 <Link to="/">
@@ -12,13 +12,24 @@ const Header = ({ siteTitle }) => (
             </h1>
         </div>
 
-        <style jsx>{`
-            header div {
-                text-align: center;
+        <style global jsx>{`
+            header.titlebar {
+                grid-column: 4 / 10;
             }
 
-            header div h1 {
+            header.titlebar div {
+                text-align: left;
+            }
+
+            header.titlebar div h1 {
                 font-size: 1.5rem;
+            }
+
+            header.titlebar div h1 a {
+                font-variant: small-caps;
+                text-decoration: none;
+                font-weight: 300;
+                text-transform: lowercase;
             }
         `}</style>
     </header>

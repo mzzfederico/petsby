@@ -61,8 +61,13 @@ export function useDataQuery({ url, searchParams }) {
     return state;
 }
 
-/* Alias of useDataQuery to handle getAnimals requests */
+/** Alias of useDataQuery to handle getAnimals requests */
 export function useGetAnimals({ type = "", gender = "", age = "", location = "", page = 1 }) {
     const state = useDataQuery({ url: resources.getAnimals, searchParams: { type, gender, age, location, page } });
+    return state;
+}
+/** Alias of useDataQuery to handle getAnimals requests for a single animal*/
+export function useGetAnimalById({ id }) {
+    const state = useDataQuery({ url: `${resources.getAnimals}/${id}`, searchParams: {} });
     return state;
 }

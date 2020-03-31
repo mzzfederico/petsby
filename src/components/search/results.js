@@ -1,6 +1,10 @@
 import React from "react";
 import useSearchContext from "../../hooks/useSearchContext";
 import { useGetAnimals } from "../../hooks/useDataQuery";
+import { Link } from "gatsby";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMale } from "@fortawesome/free-solid-svg-icons";
+import { faFemale } from "@fortawesome/free-solid-svg-icons";
 
 export default function ResultsBlock() {
     const { species, city } = useSearchContext();
@@ -32,7 +36,7 @@ export default function ResultsBlock() {
 }
 
 export function ResultItem({ animal }) {
-    const { name, age, gender, size, description, photos } = animal;
+    const { name, age, gender, size, photos, id } = animal;
 
     const imgSet = photos.map((photo, index) => photo.medium);
 
@@ -42,16 +46,30 @@ export function ResultItem({ animal }) {
                 <img src={imgSet[0]} />
             </div>
             <div className="info">
-                <h2>{name}</h2>
-                <span className="desc">{description}</span>
+                <h2>
+                    {name}{" "}
+                    <span className="gender">
+                        {gender === "Male" && <FontAwesomeIcon icon={faMale} />}
+                        {gender === "Female" && <FontAwesomeIcon icon={faFemale} />}
+                    </span>
+                </h2>
+                <div className={"description"}>
+                    <ul>
+                        <li><b>Age:</b> {age}</li>
+                        <li><b>Size:</b> {size}</li>
+                    </ul>
+                </div>
+                <Link to={`/animal/${id}`}>more details</Link>
             </div>
 
-            <style jsx>{`
+            <style jsx global>{`
                 .result-item {
+                    box-shadow: 0 12px 100px 8px rgba(0,0,0,.1);
+                    border-radius: 1rem;
+
                     position: relative;
                     padding: 1rem;
-                    background: #555;
-                    color: white;
+                    border: 1px solid white;
 
                     display: grid;
                     grid-template-columns: 1fr 1fr;
@@ -59,13 +77,39 @@ export function ResultItem({ animal }) {
                 }
 
                 .result-item .image {
+                    text-align: center;
                     grid-column: 1 / 2;
                     overflow: hidden;
+                    position: relative;
                 }
 
-                .result-item .mage img {
-                    width: 100%;
-                    display: block;
+                .result-item .image img {
+                    height: 100%;
+                    position: absolute;
+                    margin: auto;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                }
+
+                .result-item .description ul {
+                    list-style: none;
+                    padding: 0;
+                    font-size: 0.8rem;
+                }
+
+                .result-item a {
+                    font-weight: 300;
+                    text-transform: lowercase;
+                    margin-right: 1rem;
+                    font-size: 0.9rem;
+                    font-variant: small-caps;
+                    background-color: #cecece;
+                    border-radius: 0.25rem;
+                    padding: 0.15rem 0.5rem;
+                    text-decoration: none;
+                    color: black;
                 }
             `}</style>
         </div>
