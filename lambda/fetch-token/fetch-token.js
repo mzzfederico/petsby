@@ -1,5 +1,5 @@
 /* eslint-disable */
-require('dotenv').config();
+
 const fetch = require('node-fetch');
 exports.handler = async function (event, context) {
     try {
